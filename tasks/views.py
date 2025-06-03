@@ -1,3 +1,12 @@
-from django.shortcuts import render
+from django.views.generic import ListView, DetailView
+from .models import TaskItem
 
-# Create your views here.
+
+class TasksListView(ListView):
+    model = TaskItem
+    template_name = "home.html"
+
+
+class TasksDetailView(DetailView):
+    model = TaskItem
+    template_name = "task_detail.html"

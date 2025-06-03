@@ -1,0 +1,9 @@
+<!-- templates/task_detail.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="task-entry">
+    <h2>{{ taskitem.title }}</h2>
+    <p>{{ taskitem.description }}</p>
+</div>
+{% endblock content %}

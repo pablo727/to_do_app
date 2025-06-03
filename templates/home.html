@@ -1,0 +1,11 @@
+<!-- templates/home.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+{% for taskitem in taskitem_list %}
+  <div class="task-entry">
+    <h2><a href="{{ taskitem.get_absolute_url }}">{{ taskitem.title }}</a></h2>
+    <p>{{ taskitem.description }}</p>
+  </div>
+{% endfor %}
+{% endblock content %}
