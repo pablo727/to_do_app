@@ -45,3 +45,32 @@ class TaskItemTests(TestCase):
         self.assertEqual(no_response.status_code, 404)
         self.assertContains(response, "A good title")
         self.assertTemplateUsed(response, "task_detail.html")
+
+    def test_task_createview(self):
+        response = self.client.post(
+            reverse("task_new"),
+            {
+                "title": "New title",
+                "description": "New text",
+                "author": self.user.id,
+            },
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(TaskItem.objects.last().title, "New title")
+        self.assertEqual(TaskItem.objects.last().description, "New text")
+
+    def test_task_updateview(self):
+        response = self.client.post(
+            reverse("task_edit", args="1"),
+            {
+                "title": "Updated title",
+                "description": "Updated text",
+            },
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(TaskItem.objects.last().title, "Updated title")
+        self.assertEqual(TaskItem.objects.last().description, "Updated text")
+
+    def test_task_deleteview(self):
+        response = self.client.post(reverse("task_delete", args="1"))
+        self.assertEqual(response.status_code, 302)

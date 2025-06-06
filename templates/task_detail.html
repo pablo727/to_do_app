@@ -6,4 +6,8 @@
     <h2>{{ taskitem.title }}</h2>
     <p>{{ taskitem.description }}</p>
 </div>
+<div>
+<p><a href="{% url 'task_edit' taskitem.pk %}">+ Edit Task</a></p>
+<p><a href="{% url 'task_delete' taskitem.pk %}">Delete Task</a></p>
+</div>
 {% endblock content %}

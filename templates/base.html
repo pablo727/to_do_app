@@ -16,11 +16,28 @@
 
 <body>
     <header>
-        <h1><a href="{% url 'home' %}">To Do App</a></h1>
+        <div class="nav-left">
+           <h1><a href="{% url 'home' %}">To Do App</a></h1> 
+        </div>
+        <div class="nav-right">
+            <a href="{% url 'task_new' %}">+ New Task</a>
+        </div>
 </header>
+{% if user.is_authenticated %}
+<p>Hi {{ user.username }}!</p>
+<form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-link">Log Out</button>
+</form>
+{% else %}
+<p>You are not logged in.</p>
+<a href="{% url 'login' %}" class="btn">Log In</a>
+<a href="{% url 'signup' %}" class ="btn">Sign Up</a>
+{% endif %}
 <div>
     {% block content %}
     {% endblock content %}
 </div>
 </body>
+
 </html>
