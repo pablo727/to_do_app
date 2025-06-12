@@ -148,3 +148,5 @@ LOGOUT_REDIRECT_URL = "home"
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
 CRISPY_TEMPLATE_PACK = "tailwind"
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
