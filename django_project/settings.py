@@ -45,7 +45,11 @@ INSTALLED_APPS = [
     # Local
     "tasks",
     "accounts",
+    "task_scheduler",
 ]
+
+TIME_ZONE = "Asia/Hong_Kong"
+USE_TZ = True
 
 TAILWIND_APP_NAME = "theme"
 

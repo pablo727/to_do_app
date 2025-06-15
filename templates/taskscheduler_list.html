@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Task Scheduler{% endblock title %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto mt-10 space-y-8">
+  {% for taskscheduler in taskscheduler_list %}
+    <div class="bg-white rounded-lg shadow-md p-6">
+      <!-- Title -->
+      <h2 class="text-xl font-semibold text-purple-700 mb-1">
+        <a href="{{ taskscheduler.get_absolute_url }}">
+          {{ taskscheduler.title }}</a>
+      </h2>
+
+      <!-- Author & Scheduled Time -->
+      <div class="text-sm text-gray-500 mb-2">
+        by {{ taskscheduler.author }} · 
+        <span class="italic">scheduled for</span> 
+        {{ taskscheduler.scheduled_time|date:"M d, Y H:i" }}
+      </div>
+
+      <!-- Completion Status -->
+      <div class="text-sm mb-4">
+        {% if taskscheduler.completed %}
+          <span class="text-green-600 font-semibold">✓ Completed</span>
+        {% else %}
+          <span class="text-yellow-600 font-semibold">⧗ Pending</span>
+        {% endif %}
+      </div>
+
+      <!-- Description -->
+      <p class="text-gray-700 mb-4">
+        {{ taskscheduler.description }}
+      </p>
+
+      <!-- Actions -->
+      <div class="flex justify-end pt-4 border-t border-gray-200">
+        <div class="flex gap-6">
+          <a href="{% url 'taskscheduler_edit' taskscheduler.pk %}"
+           class="text-indigo-600 hover:underline">
+            Edit</a>
+          <a href="{% url 'taskscheduler_delete' taskscheduler.pk %}"
+           class="text-red-500 hover:underline">
+            Delete</a>
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <p class="text-center text-gray-500">No scheduled tasks yet.</p>
+  {% endfor %}
+</div>
+{% endblock content %}

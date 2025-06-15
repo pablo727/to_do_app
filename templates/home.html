@@ -7,15 +7,15 @@
 <div class="max-w-xl mx-auto mt-12 px-4">
   <h1 class="text-3xl font-bold text-gray-800 mb-10 text-center">Your Tasks</h1>
 
-{% for taskitem in taskitem_list %}
-  <div class="bg-white border border-gray-300 rounded-lg shadow-sm p-6 mb-6">
-    <h2 class="text-xl font-semibold text-blue-600 hover:underline mb-2">
-      <a href="{{ taskitem.get_absolute_url }}">{{ taskitem.title }}</a>
-    </h2>
-    <p class="text-gray-700 leading-relaxed">{{ taskitem.description }}</p>
-  </div>
+  {% for taskitem in taskitem_list %}
+    <div class="bg-white border border-gray-300 rounded-lg shadow-sm p-6 mb-6">
+      <h2 class="text-xl font-semibold text-blue-600 hover:underline mb-2">
+        <a href="{{ taskitem.get_absolute_url }}">{{ taskitem.title }}</a>
+      </h2>
+      <p class="text-gray-700 leading-relaxed">{{ taskitem.description }}</p>
+    </div>
   {% empty %}
-  <p class="text-gray-600 text-center">You don't have any tasks yet. Add a new one!</p>
-{% endfor %}
+    <p class="text-gray-600 text-center">You don't have any tasks yet. Add a new one!</p>
+  {% endfor %}
 </div>
 {% endblock content %}
