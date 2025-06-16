@@ -8,10 +8,18 @@
 
     <div class="flex justify-between items-center pt-6 border-t border-gray-200">
         <div class="space-x-4">
-            <a href="{% url 'taskscheduler_edit' object.pk %}" class="text-indigo-600 hover:underline">Edit</a>
-            <a href="{% url 'taskscheduler_delete' object.pk %}" class="text-red-500 hover:underline">Delete</a>
+            {% if taskscheduler.author.pk == request.user.pk %}
+              <a href="{% url 'taskscheduler_edit' taskscheduler.pk %}"
+               class="text-indigo-600 hover:underline">
+                Edit</a>
+              <a href="{% url 'taskscheduler_delete' taskscheduler.pk %}"
+               class="text-red-500 hover:underline">
+                Delete</a>
+            {% endif %}
         </div>
-        <a href="{% url 'taskscheduler_list' %}" class="text-gray-600 hover:underline">← All Task Schedules</a>
+        <a href="{% url 'taskscheduler_list' %}"
+         class="text-gray-600 hover:underline">
+         ← All Task Schedules</a>
     </div>
 </div>
 {% endblock content %}

@@ -37,12 +37,14 @@
       <!-- Actions -->
       <div class="flex justify-end pt-4 border-t border-gray-200">
         <div class="flex gap-6">
+          {% if taskscheduler.author.pk == request.user.pk %}
           <a href="{% url 'taskscheduler_edit' taskscheduler.pk %}"
            class="text-indigo-600 hover:underline">
             Edit</a>
           <a href="{% url 'taskscheduler_delete' taskscheduler.pk %}"
            class="text-red-500 hover:underline">
             Delete</a>
+          {% endif %}
         </div>
       </div>
     </div>
