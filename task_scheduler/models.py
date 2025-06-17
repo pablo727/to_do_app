@@ -20,3 +20,18 @@ class TaskScheduler(models.Model):
 
     def get_absolute_url(self):
         return reverse("task_scheduler_detail", kwargs={"pk": self.pk})
+
+
+class Comment(models.Model):
+    taskscheduler = models.ForeignKey(TaskScheduler, on_delete=models.CASCADE)
+    comment = models.CharField(max_length=140)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name_plural = "💬 Comments"
+
+    def __str__(self):
+        return self.comment
+
+    def get_absolute_url(self):
+        return reverse("taskscheduler_list")

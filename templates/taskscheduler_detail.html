@@ -1,25 +1,56 @@
+<!-- templates/ taskscheduler_detail.html -->
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 <div class="max-w-2xl mx-auto mt-10 space-y-6 bg-white p-6 rounded-lg shadow-md">
-    <h2 class="text-2xl font-bold text-purple-800">{{ object.title }}</h2>
-    <p class="text-sm text-gray-500">by {{ object.author }} | {{ object.created_at|date:"M d, Y H:i" }}</p>
-    <p class="text-gray-700 mt-4">{{ object.description }}</p>
+  <!-- Title and Metadata -->
+  <h2 class="text-2xl font-bold text-purple-800">{{ object.title }}</h2>
+  <p class="text-sm text-gray-500">
+    by {{ object.author }} | {{ object.created_at|date:"M d, Y H:i" }}
+  </p>
 
-    <div class="flex justify-between items-center pt-6 border-t border-gray-200">
-        <div class="space-x-4">
-            {% if taskscheduler.author.pk == request.user.pk %}
-              <a href="{% url 'taskscheduler_edit' taskscheduler.pk %}"
-               class="text-indigo-600 hover:underline">
-                Edit</a>
-              <a href="{% url 'taskscheduler_delete' taskscheduler.pk %}"
-               class="text-red-500 hover:underline">
-                Delete</a>
-            {% endif %}
-        </div>
-        <a href="{% url 'taskscheduler_list' %}"
-         class="text-gray-600 hover:underline">
-         ← All Task Schedules</a>
+  <!-- Description/Body -->
+  <p class="text-gray-700 mt-4">{{ object.description }}</p>
+
+  <!-- Action Buttons -->
+  <div class="flex justify-between items-center pt-6 border-t border-gray-200">
+    <div class="space-x-4">
+      {% if object.author.pk == request.user.pk %}
+        <a href="{% url 'taskscheduler_edit' object.pk %}" class="text-indigo-600 hover:underline">Edit</a>
+        <a href="{% url 'taskscheduler_delete' object.pk %}" class="text-red-500 hover:underline">Delete</a>
+      {% endif %}
     </div>
+    <a href="{% url 'taskscheduler_list' %}" class="text-gray-600 hover:underline">← All Task Schedules</a>
+  </div>
+
+  <!-- Comments Section -->
+  <div class="pt-6 border-t border-gray-200 mt-6">
+    <h4 class="text-lg font-semibold text-gray-800 mb-4">Comments</h4>
+    {% for comment in object.comment_set.all %}
+      <div class="mb-3">
+        <p class="text-sm text-gray-600">
+          <span class="font-bold text-gray-800">{{ comment.author }}</span> &middot;
+          {{ comment.created|date:"M d, Y H:i" }}
+        </p>
+        <p class="text-gray-700">{{ comment.body }}</p>
+      </div>
+    {% empty %}
+      <p class="text-sm text-gray-400 italic">No comments yet.</p>
+    {% endfor %}
+  </div>
+
+  <!-- Add a Comment Form -->
+  <div class="pt-6 border-t border-gray-200 mt-6">
+    <h4 class="text-lg font-semibold text-gray-800 mb-4">Add a comment</h4>
+    <form method="post" action="" class="space-y-4">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <button type="submit" style="background-color:purple;"
+      class="text-white px-4 py-2 rounded hover:bg-purple-800">
+        Save
+      </button>
+    </form>
+  </div>
 </div>
 {% endblock content %}
