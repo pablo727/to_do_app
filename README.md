@@ -38,17 +38,17 @@ A simple yet functional task management web application built with Django and de
   ```bash
   python -m venv venv
   source venv/bin/activate  # Windows: venv\Scripts\activate
-
+  ```
 3. Install dependencies:
   ```bash
   pip install -r requirements.txt
-
+  ```
 4. Run migrations and start the server:
   ```bash
   python manage.py migrate
   python manage.py runserver
-
+  ```
 5. Visit http://127.0.0.1:8000/ in your browser.
 
-📄 License
+## 📄 License
 MIT License. Use freely, credit appreciated.
